@@ -47,12 +47,12 @@
   align-items: center;
   justify-content: center;
   /* background: #333333; */
-background: grey
+  background: grey;
 }
 
 .loader--hidden {
   opacity: 0;
-  visibility:hidden;
+  visibility: hidden;
 }
 
 .loader::after {
@@ -62,7 +62,7 @@ background: grey
   border: 15px solid #dddddd;
   border-top-color: #009578;
   border-radius: 50%;
- animation: loading 0.75s ease infinite; 
+  animation: loading 0.75s ease infinite;
 }
 
 @keyframes loading {
@@ -72,4 +72,11 @@ background: grey
   to {
     transform: rotate(1turn);
   }
+}
+
+.background {
+  background-image: url('/public/background.jpg');
+  min-height: 100vh;
+  background-size: cover;
+  position: 'relative';
 }
