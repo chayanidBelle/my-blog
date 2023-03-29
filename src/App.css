@@ -78,5 +78,14 @@
   background-image: url('/public/background.jpg');
   min-height: 100vh;
   background-size: cover;
-  position: 'relative';
+  position: relative;
+}
+
+.about-background {
+  width: 100%;
+  padding: 20px 100px;
+  position: relative;
+  background-color: #7aa6cb;
+  display: flex;
+  justify-content: center;
 }

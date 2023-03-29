@@ -9,7 +9,7 @@ const Navbar = () => {
       <nav className='navigation'>
         <a href='/'>Home</a>
         <a href='/'>About</a>
-        <a href='/'>Skills</a>
+        <a href='/'>Articles</a>
         <a href='/'>Contact</a>
 
         {/* <Button className='btn-msg'>Send MSG</Button> */}
