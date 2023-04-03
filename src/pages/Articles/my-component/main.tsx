@@ -19,6 +19,14 @@ const MainComponents = () => {
   );
 
   return (
+    /* 
+    My practicing components list 
+    1. linear progress bar
+    2. circle progress bar 
+    3. circle loading panel 
+    4. linear loading panel
+    5. 
+    */
     <div style={{ backgroundColor: 'antiquewhite', width: '100%', height: '1vh' }}>
       {/* <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>

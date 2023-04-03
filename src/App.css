@@ -89,3 +89,9 @@
   display: flex;
   justify-content: center;
 }
+
+/* 
+Position 
+  relative: กำหนดตำแหน่งโดยอ้างอิงจากจุดเดิม 
+  absolute: สามารถกำหนดตำแหน่งลอยได้อิสระตามกรอบ parent ของมัน 
+*/
