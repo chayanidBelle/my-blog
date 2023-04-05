@@ -2,8 +2,9 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
-import { AccordionSummary, Typography } from '@mui/material';
+import { AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import LinearProgressBar from './practicing-components/linear-progress-bar';
 
 const MainComponents = () => {
   const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)(
@@ -27,13 +28,24 @@ const MainComponents = () => {
     4. linear loading panel
     5. 
     */
-    <div style={{ backgroundColor: 'antiquewhite', width: '100%', height: '1vh' }}>
-      {/* <Accordion>
+    <div style={{ width: '100%', padding: 100 }}>
+      <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>Progress Bar</Typography>
+          <Typography>Linear Progress Bar</Typography>
         </AccordionSummary>
-      </Accordion> */}
-      <Typography style={{ padding: 100 }}>test</Typography>
+        <AccordionDetails>
+          <LinearProgressBar />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography>Circle Progress Bar</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          {/* <LinearProgressBar /> */}
+          <Typography>Waiting to implement...</Typography>
+        </AccordionDetails>
+      </Accordion>
     </div>
   );
 };
