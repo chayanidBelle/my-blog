@@ -21,7 +21,7 @@ const LinearProgressBar = () => {
         element.style.width = width + '%';
         element.innerHTML = width * 1 + '%'; //innerHTML is to get HTML content of element
       }
-    }, 100);
+    }, 10);
   };
 
   const clickReset = () => {
@@ -50,7 +50,7 @@ const LinearProgressBar = () => {
 
         return prev + 10;
       });
-    }, 1000);
+    }, 100);
   };
 
   const clickResetMui = () => {
