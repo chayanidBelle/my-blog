@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Navbar from './layouts/navbar';
 import MainComponents from './pages/Articles/my-component/main';
+import ContactComponent from './pages/Contact/contact';
 import NotFoundPage from './pages/Notfound/404-not-found';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         {/* <Route path='*' element={<NotFoundPage />} /> */}
         <Route path='/' element={<div className='background'></div>} />
         <Route path='/articles' element={<MainComponents />} />
+        <Route path='/contact' element={<ContactComponent />} />
         <Route path='/404' element={<NotFoundPage />} />
         <Route path='*' element={<Navigate to='/404' replace />} />
       </Routes>
