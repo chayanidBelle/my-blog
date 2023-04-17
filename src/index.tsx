@@ -7,7 +7,9 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme/theme';
 import { BrowserRouter } from 'react-router-dom';
 
+//get root element to render component in "root" div
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+//ReactDOM.render = create virtual DOM
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
