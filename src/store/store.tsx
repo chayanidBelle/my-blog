@@ -5,6 +5,7 @@ import persistStore from 'redux-persist/es/persistStore';
 import storage from 'redux-persist/lib/storage'; //defaults to localstorage for web
 // import mainReducer from './main-reducer';
 import rootReducer from './root.reducer';
+import { composeWithDevTools } from 'redux-devtools-extension'; // to use redux extension in browsers
 
 //specifies the storage mechanism
 const persistConfig = {
@@ -20,6 +21,6 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 //store
-export const store = createStore(persistedReducer, applyMiddleware(logger));
+export const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(logger)));
 //persist reducer
 export const persistor = persistStore(store);
