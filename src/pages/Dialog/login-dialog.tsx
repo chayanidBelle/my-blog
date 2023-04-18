@@ -1,9 +1,9 @@
-import { Box, Dialog, DialogContent, TextField, Theme, Typography } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, TextField, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React, { Component, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { store } from '../../store';
-import mainReducer from '../../store/main-reducer';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { MainActionType } from '../../store/main-action';
+import { IReducers } from '../../store/root.reducer';
 import './dialog.css';
 
 interface ILogin {
@@ -13,8 +13,13 @@ interface ILogin {
 
 const LoginDialog = (props: ILogin) => {
   const inStyle = useStyles();
-  const data = store.getState();
-  console.log(data);
+  const dispatch = useDispatch();
+  // const data = store.getState(); //getState for only one reducer
+  const { username, password } = useSelector((state: IReducers) => state.mainReducer);
+
+  const onChangeValue = (e: any) => {
+    dispatch({ type: MainActionType.SIGN_UP_STORING, payload: { [e.target.name]: e.target.value } });
+  };
 
   return (
     <Dialog
@@ -30,12 +35,71 @@ const LoginDialog = (props: ILogin) => {
           Login
         </p>
         <Box margin='40px 0px'>
-          <TextField required label='Username' variant='outlined' autoComplete='false' />
+          <TextField
+            required
+            name='username'
+            label='Username'
+            variant='outlined'
+            autoComplete='false'
+            defaultValue={username}
+            onBlur={onChangeValue}
+          />
         </Box>
         <Box>
-          <TextField required label='Password' type='password' variant='outlined' autoComplete='false' />
+          <TextField
+            required
+            name='password'
+            label='Password'
+            type='password'
+            variant='outlined'
+            autoComplete='false'
+            defaultValue={password}
+            onBlur={onChangeValue}
+          />
         </Box>
       </DialogContent>
+      <DialogActions>
+        <Box
+          padding='10px 20px 10px 20px'
+          width='100%'
+          display='flex'
+          justifyContent='space-between'
+          flexDirection='row'
+        >
+          <Button
+            // onClick={onSubmit}
+            sx={{
+              width: '100px',
+              height: '38px',
+              backgroundColor: '#b5c9c8',
+              borderRadius: '5px',
+              color: '#FFF',
+              '&:hover': {
+                backgroundColor: '#57838c',
+                color: '#FFF',
+              },
+            }}
+          >
+            Submit
+          </Button>
+          <Button
+            onClick={() => props.setOpen(false)}
+            sx={{
+              width: '100px',
+              height: '38px',
+              backgroundColor: '#b5c9c8',
+              borderRadius: '5px',
+              color: '#FFF',
+              '&:hover': {
+                backgroundColor: '#57838c',
+                color: '#FFF',
+              },
+            }}
+          >
+            Cancel
+          </Button>
+        </Box>
+      </DialogActions>
     </Dialog>
   );
 };

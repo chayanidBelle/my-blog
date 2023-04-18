@@ -1,8 +1,10 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, TextField, Theme, Typography } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, TextField, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React, { Component, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { MainActionType } from '../../store/main-action';
+import { ManageActionType } from '../../store/mange-menu/manage-action';
+import { IReducers } from '../../store/root.reducer';
 import './dialog.css';
 
 interface ISignup {
@@ -13,6 +15,7 @@ interface ISignup {
 const SignupDialog = (props: ISignup) => {
   const inStyle = useStyles();
   const dispatch = useDispatch();
+  const { allow_access } = useSelector((state: IReducers) => state.manageReducer);
   const [confirmPass, setConfirmPass] = useState('');
   const [data, setData] = useState({
     name: '',
@@ -20,6 +23,8 @@ const SignupDialog = (props: ISignup) => {
     username: '',
     password: '',
   });
+
+  console.log('allow_access :>> ', allow_access);
 
   const onChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -31,12 +36,21 @@ const SignupDialog = (props: ISignup) => {
     if (data.password !== confirmPass) {
       alert('Password is not reach the target!');
     } else {
+      props.setOpen(false);
       onSignup();
+      onAccessMange();
     }
   };
 
   const onSignup = () => {
     dispatch({ type: MainActionType.SIGN_UP_STORING, payload: data });
+  };
+
+  const onAccessMange = () => {
+    const new_list_member = allow_access.list_member.push(data);
+    const new_allow_access = { ...allow_access, list_memeber: new_list_member };
+
+    dispatch({ type: ManageActionType.ACCESS_MANAGEMENT, payload: { allow_access: new_allow_access } });
   };
 
   return (

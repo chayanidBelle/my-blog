@@ -1,9 +1,6 @@
-interface IAction {
-  type: string;
-  payload: any;
-}
+import { IAction } from '../interface/general-interface';
 
-interface IInitialState {
+export interface IInitialState {
   name: string;
   lastname: string;
   username: string;
@@ -21,7 +18,6 @@ const mainReducer = (state = initialState, action: IAction) => {
   const { type, payload } = action;
   switch (type) {
     case 'SIGN_UP_STORING':
-      console.log(payload);
       return { ...state, ...payload };
 
     default:
