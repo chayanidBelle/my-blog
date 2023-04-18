@@ -15,7 +15,7 @@ const ContactComponent = () => {
       <Box mt='30px'>
         <p>Buy me coffee and tea!</p>
         <a href='https://writer.dek-d.com/dekdee/writer/view.php?id=2331080' style={{ fontSize: '18px' }}>
-          Follow this link and I want to say 'ขอบคุณค่ะ' to everyone!
+          Follow this link and I want to say 'Thanks a lot' to everyone!
         </a>
       </Box>
     </div>
