@@ -25,3 +25,13 @@ li {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 24px;
 }
+
+.label {
+  color: black;
+  font-size: 22px;
+}
+
+.label::after {
+  content: '*';
+  color: red;
+}

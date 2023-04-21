@@ -18,6 +18,10 @@ const ContactComponent = () => {
           Follow this link and I want to say 'Thanks a lot' to everyone!
         </a>
       </Box>
+
+      <Box mt='30px'>
+        <p className='label'>Email</p>
+      </Box>
     </div>
   );
 };
