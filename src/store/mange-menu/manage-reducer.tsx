@@ -1,4 +1,4 @@
-import { IAction } from '../../interface/general-interface';
+import { IAction } from "../../interface/general-interface";
 
 interface IAuthorization {
   access: boolean;
@@ -17,8 +17,9 @@ const ManageState = {
 
 const manageReducer = (state = ManageState, action: IAction) => {
   const { type, payload } = action;
+
   switch (type) {
-    case 'ACCESS_MANAGEMENT': {
+    case "ACCESS_MANAGEMENT": {
       const { allow_access, deny_access } = payload;
       return { ...state, allow_access, deny_access };
     }
