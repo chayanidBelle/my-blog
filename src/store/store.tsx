@@ -1,5 +1,5 @@
 import { applyMiddleware, createStore } from 'redux';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 import { persistReducer } from 'redux-persist';
 import persistStore from 'redux-persist/es/persistStore';
 import storage from 'redux-persist/lib/storage'; //defaults to localstorage for web
@@ -21,6 +21,6 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 //store
-export const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(logger)));
+export const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware()));
 //persist reducer
 export const persistor = persistStore(store);

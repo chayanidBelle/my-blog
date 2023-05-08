@@ -1,18 +1,10 @@
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  TextField,
-  Theme,
-} from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { MainActionType } from "../../store/main-action";
-import { IReducers } from "../../store/root.reducer";
-import "./dialog.css";
+import { Box, Button, Dialog, DialogActions, DialogContent, TextField, Theme } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { MainActionType } from '../../store/main-action';
+import { IReducers } from '../../store/root.reducer';
+import './dialog.css';
 
 interface ILogin {
   open: boolean;
@@ -23,9 +15,7 @@ const LoginDialog = (props: ILogin) => {
   const inStyle = useStyles();
   const dispatch = useDispatch();
   // const data = store.getState(); //getState for only one reducer
-  const { username, password } = useSelector(
-    (state: IReducers) => state.mainReducer
-  );
+  const { username, password } = useSelector((state: IReducers) => state.mainReducer); //use in components to rerender
 
   const onChangeValue = (e: any) => {
     dispatch({
@@ -34,17 +24,32 @@ const LoginDialog = (props: ILogin) => {
     });
   };
 
-  const onSubmit = () => {
-    fetch("/api/get-message")
+  const onSubmit = async () => {
+    // username: eve.holt@reqres.in
+    // pass: cityslicka
+
+    const body = {
+      email: username,
+      password: password,
+    };
+
+    fetch('https://reqres.in/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(body),
+    })
       .then((response: any) => {
-        response.text();
-        console.log("response :>> ", response);
+        console.log('response :>> ', response);
+        return response.json();
       })
       .then((result: any) => {
-        console.log("result :>> ", result);
+        console.log('result :>> ', result);
+        alert('Login Succeed');
       })
       .catch((error: any) => {
-        console.log("error :>> ", error);
+        console.log('error :>> ', error);
       });
   };
 
@@ -52,22 +57,22 @@ const LoginDialog = (props: ILogin) => {
     <Dialog
       open={props.open}
       onClose={() => props.setOpen(false)}
-      maxWidth="sm"
-      scroll="paper"
+      maxWidth='sm'
+      scroll='paper'
       fullWidth
       className={inStyle.dialog}
     >
       <DialogContent className={inStyle.dialogContent}>
-        <p className="engFont" style={{ textAlign: "center", fontWeight: 600 }}>
+        <p className='engFont' style={{ textAlign: 'center', fontWeight: 600 }}>
           Login
         </p>
-        <Box margin="40px 0px">
+        <Box margin='40px 0px'>
           <TextField
             required
-            name="username"
-            label="Username"
-            variant="outlined"
-            autoComplete="false"
+            name='username'
+            label='Username'
+            variant='outlined'
+            autoComplete='false'
             defaultValue={username}
             onBlur={onChangeValue}
           />
@@ -75,11 +80,11 @@ const LoginDialog = (props: ILogin) => {
         <Box>
           <TextField
             required
-            name="password"
-            label="Password"
-            type="password"
-            variant="outlined"
-            autoComplete="false"
+            name='password'
+            label='Password'
+            type='password'
+            variant='outlined'
+            autoComplete='false'
             defaultValue={password}
             onBlur={onChangeValue}
           />
@@ -87,23 +92,23 @@ const LoginDialog = (props: ILogin) => {
       </DialogContent>
       <DialogActions>
         <Box
-          padding="10px 20px 10px 20px"
-          width="100%"
-          display="flex"
-          justifyContent="space-between"
-          flexDirection="row"
+          padding='10px 20px 10px 20px'
+          width='100%'
+          display='flex'
+          justifyContent='space-between'
+          flexDirection='row'
         >
           <Button
             onClick={onSubmit}
             sx={{
-              width: "100px",
-              height: "38px",
-              backgroundColor: "#b5c9c8",
-              borderRadius: "5px",
-              color: "#FFF",
-              "&:hover": {
-                backgroundColor: "#57838c",
-                color: "#FFF",
+              width: '100px',
+              height: '38px',
+              backgroundColor: '#b5c9c8',
+              borderRadius: '5px',
+              color: '#FFF',
+              '&:hover': {
+                backgroundColor: '#57838c',
+                color: '#FFF',
               },
             }}
           >
@@ -112,14 +117,14 @@ const LoginDialog = (props: ILogin) => {
           <Button
             onClick={() => props.setOpen(false)}
             sx={{
-              width: "100px",
-              height: "38px",
-              backgroundColor: "#b5c9c8",
-              borderRadius: "5px",
-              color: "#FFF",
-              "&:hover": {
-                backgroundColor: "#57838c",
-                color: "#FFF",
+              width: '100px',
+              height: '38px',
+              backgroundColor: '#b5c9c8',
+              borderRadius: '5px',
+              color: '#FFF',
+              '&:hover': {
+                backgroundColor: '#57838c',
+                color: '#FFF',
               },
             }}
           >
@@ -139,11 +144,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   dialogContent: {
     height: 300,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   typo: {
-    fontFamily: "Space Grotesk, sans-serif",
+    fontFamily: 'Space Grotesk, sans-serif',
   },
 }));

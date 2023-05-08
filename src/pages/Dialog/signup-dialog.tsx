@@ -1,10 +1,10 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, TextField, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import axios from 'axios';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux'; //useSelector
 import { MainActionType } from '../../store/main-action';
-import { ManageActionType } from '../../store/mange-menu/manage-action';
-import { IReducers } from '../../store/root.reducer';
+// import { IReducers } from '../../store/root.reducer';
 import './dialog.css';
 
 interface ISignup {
@@ -15,16 +15,13 @@ interface ISignup {
 const SignupDialog = (props: ISignup) => {
   const inStyle = useStyles();
   const dispatch = useDispatch();
-  const { allow_access } = useSelector((state: IReducers) => state.manageReducer);
-  const [confirmPass, setConfirmPass] = useState('');
+  // const { allow_access } = useSelector((state: IReducers) => state.manageReducer);
   const [data, setData] = useState({
     name: '',
     lastname: '',
-    username: '',
-    password: '',
+    username: 'eve.holt@reqres.in',
+    password: 'pistol',
   });
-
-  console.log('allow_access :>> ', allow_access);
 
   const onChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -32,26 +29,38 @@ const SignupDialog = (props: ISignup) => {
 
   const onSubmit = () => {
     console.log(data);
-    console.log(confirmPass);
-    if (data.password !== confirmPass) {
-      alert('Password is not reach the target!');
-    } else {
-      props.setOpen(false);
-      onSignup();
-      onAccessMange();
+    props.setOpen(false);
+    onSignup();
+  };
+
+  const onSignup = async () => {
+    try {
+      const body = {
+        email: data.username,
+        password: data.password,
+      };
+
+      const res: any = await axios.post('https://reqres.in/api/register', body, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      dispatch({
+        type: MainActionType.SIGN_UP_STORING,
+        payload: { ...data, username: data.username, token: res.data.token },
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const onSignup = () => {
-    dispatch({ type: MainActionType.SIGN_UP_STORING, payload: data });
-  };
+  // const onAccessMange = () => {
+  //   const new_list_member = allow_access.list_member.push(data);
+  //   const new_allow_access = { ...allow_access, list_memeber: new_list_member };
 
-  const onAccessMange = () => {
-    const new_list_member = allow_access.list_member.push(data);
-    const new_allow_access = { ...allow_access, list_memeber: new_list_member };
-
-    dispatch({ type: ManageActionType.ACCESS_MANAGEMENT, payload: { allow_access: new_allow_access } });
-  };
+  //   dispatch({ type: ManageActionType.ACCESS_MANAGEMENT, payload: { allow_access: new_allow_access } });
+  // };
 
   return (
     <Dialog
@@ -81,6 +90,7 @@ const SignupDialog = (props: ISignup) => {
         </Box>
         <Box mt='40px'>
           <TextField
+            defaultValue={data.username}
             name='username'
             required
             label='Username'
@@ -91,6 +101,7 @@ const SignupDialog = (props: ISignup) => {
         </Box>
         <Box mt='40px'>
           <TextField
+            defaultValue={data.password}
             name='password'
             required
             label='Password'
@@ -100,7 +111,7 @@ const SignupDialog = (props: ISignup) => {
             onChange={onChange}
           />
         </Box>
-        <Box mt='40px'>
+        {/* <Box mt='40px'>
           <TextField
             required
             label='Confirm Password'
@@ -109,7 +120,7 @@ const SignupDialog = (props: ISignup) => {
             autoComplete='false'
             onChange={(e: any) => setConfirmPass(e.target.value)}
           />
-        </Box>
+        </Box> */}
       </DialogContent>
       <DialogActions>
         <Box

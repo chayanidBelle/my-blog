@@ -5,6 +5,7 @@ export interface IInitialState {
   lastname: string;
   username: string;
   password: string;
+  token: string;
 }
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   lastname: '',
   username: '',
   password: '',
+  token: '',
 } as IInitialState;
 
 const mainReducer = (state = initialState, action: IAction) => {
